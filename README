@@ -1,0 +1,211 @@
+# E-commerce Inventory Management System
+
+This project is a full-stack E-commerce Inventory Management System built with the MERN stack (MongoDB, Express.js, React, Node.js). It allows for user and admin roles with role-based access control, providing functionality for product management, inventory tracking, order processing, and user authentication.
+
+## Features
+
+- User and Admin Authentication
+- Product Management (CRUD)
+- Inventory Management
+- Order Management
+- JWT-Based Role-Based Access Control
+- Insights and Reporting
+
+## Installation and Setup
+
+Follow these steps to clone, install, and run the project.
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Chitresh9876/E-COMMERCE.git
+cd e-commerce-inventory
+
+
+
+
+### MongoDB URI
+MONGO_URI=mongodb://localhost:27017/your_database_name
+
+### JWT Secrets
+ACCESS_TOKEN_SECRET=your_access_token_secret
+REFRESH_TOKEN_SECRET=your_refresh_token_secret
+
+### Token Expiry
+ACCESS_TOKEN_DURATION=1h
+REFRESH_TOKEN_DURATION=7d
+
+### Server Port
+PORT=5000
+
+Replace your_database_name, your_access_token_secret, and your_refresh_token_secret with your actual MongoDB database name and secure secrets for tokens.
+
+
+
+## Install Dependencies
+Backend
+Navigate to the backend folder and install dependencies:
+
+```bash
+Copy code
+cd backend
+npm install
+Frontend
+Navigate to the frontend folder and install dependencies:
+```
+
+```bash
+cd ../frontend
+npm install
+4. Run the Project
+In separate terminal windows or tabs, start the backend and frontend servers.
+
+
+Backend Server
+bash
+Copy code
+cd backend
+npm start
+The backend server should now be running on http://localhost:5000.
+
+Frontend Server
+bash
+Copy code
+cd ../frontend
+npm start
+The frontend server should now be running on http://localhost:3000.
+```
+
+# API Endpoints
+# Authentication
+
+## Register User
+
+Endpoint: POST /api/auth/register
+Description: Registers a new user (either a regular user or an admin) with name, email, password, and role.
+Request Body:
+json
+Copy code
+{
+  "name": "User Name",
+  "email": "user@example.com",
+  "password": "password123",
+  "role": "user" // or "admin"
+}
+
+## Login User
+
+Endpoint: POST /api/auth/login
+Description: Authenticates a user and returns an access token and refresh token.
+Request Body:
+json
+Copy code
+{
+  "email": "user@example.com",
+  "password": "password123"
+}
+
+## Product Management
+Create Product (Admin Only)
+
+Endpoint: POST /api/products
+Description: Adds a new product with details such as name, description, price, SKU, and stock quantity.
+Request Body:
+json
+Copy code
+{
+  "name": "Product Name",
+  "description": "Product description",
+  "price": 100,
+  "SKU": "PROD001",
+  "stockQuantity": 50
+}
+
+## Get All Products
+
+Endpoint: GET /api/products
+Description: Retrieves a list of all available products.
+
+### Get Product by ID
+
+Endpoint: GET /api/products/:id
+Description: Retrieves details of a single product by its ID.
+
+## Update Product (Admin Only)
+
+Endpoint: PUT /api/products/:id
+Description: Updates product details like name, description, price, and stock quantity.
+
+## Soft Delete Product (Admin Only)
+
+Endpoint: PUT /api/products/soft-delete/:id
+Description: Marks a product as deleted without removing it from the database.
+
+## Permanently Delete Product (Admin Only)
+
+Endpoint: DELETE /api/products/permanent-delete/:id
+Description: Removes a product completely from the database.
+Inventory Management
+
+## Adjust Stock (Admin Only)
+
+Endpoint: PUT /api/inventory/adjust-stock/:id
+Description: Adjusts the stock quantity for a specific product.
+Request Body:
+json
+Copy code
+{
+  "quantityChange": -5
+}
+
+## Low Stock Products (Admin Only)
+
+Endpoint: GET /api/inventory/low-stock
+Description: Retrieves a list of products with stock levels below a predefined threshold.
+
+## Inventory Summary (Admin Only)
+
+Endpoint: GET /api/inventory/inventory-summary
+Description: Provides a summary of all products and their current stock levels.
+Order Management
+
+## Place Order
+
+Endpoint: POST /api/orders
+Description: Creates a new order, reducing stock levels for ordered items.
+Request Body:
+json
+Copy code
+{
+  "products": [
+    { "productId": "product_id_1", "quantity": 2 },
+    { "productId": "product_id_2", "quantity": 1 }
+  ]
+}
+
+## Get Order Summary
+
+Endpoint: GET /api/orders/:id
+Description: Retrieves the summary of an order by ID.
+
+## Update Order Status (Admin Only)
+
+Endpoint: PUT /api/orders/:id/status
+Description: Updates the status of an order (e.g., "Pending," "Shipped," "Completed," "Cancelled").
+Request Body:
+json
+Copy code
+{
+  "status": "Shipped"
+}
+Reporting and Insights
+
+## Top Selling Products (Admin Only)
+
+Endpoint: GET /api/reports/top-selling
+Description: Lists the top-selling products based on units sold.
+
+## Low Stock Products (Admin Only)
+
+Endpoint: GET /api/reports/low-stock
+Description: Lists products with low stock levels for easy restocking.
